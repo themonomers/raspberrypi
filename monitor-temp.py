@@ -2,6 +2,7 @@ import gspread
 import os
 import time
 import sys
+import subprocess
 from datetime import date, datetime, timedelta
 
 SPREADSHEET_ID = 'x'
@@ -23,7 +24,6 @@ try:
   one_week_ago = today - timedelta(weeks=1)
 #  print('compare date: ', one_week_ago)
 #  times = sheet.get('B2:B')
-
   # get all dates data to reverse loop
   list = sheet.get('A2:A')
   for i in reversed(range(len(list))):
@@ -35,7 +35,10 @@ try:
       break
 
   # insert new row of data at the last row
-  values = [format(time.strftime('%m/%d/%Y')), time.strftime('%H:%M:%S'), measure_temp()]
+  out = subprocess.Popen(['/bin/bash','./cpu.sh'], stdout=subprocess.PIPE).communicate()[0].splitlines()
+  out = str(out).replace("['","")
+  out = out.replace("']","")
+  values = [format(time.strftime('%m/%d/%Y')), time.strftime('%H:%M:%S'), measure_temp(), out]
   sheet.append_row(values, 'USER_ENTERED')
 except:
   print('Error: ',str(sys.exc_info()[0]))
