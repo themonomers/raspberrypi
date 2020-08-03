@@ -8,4 +8,5 @@ Setup Pihole as DNS and DHCP server:
 Hostname mapping to IP addresses in Pihole:
 1.  Update Pihole for DHCP clients, /etc/dnsmasq.conf:  dhcp-host=<MAC address>,<hostname>
 2.  Update Pihole for static DHCP lease clients, /etc/hosts:  127.0.0.1 localhost, 127.0.1.1 <hostname>, and other <static IP> <hostname>
-3.  Update static DHCP lease clients, /etc/dhcpcd.conf:  static domain_name_servers=<Pihole static IP, not router IP>
+3.  Update Pihole for static IP address, /etc/dhcpcd.conf:  static ip_address=<static IP>/24, static routers=<router IP>, static domain_name_servers=<router IP>
+4.  Update static DHCP lease clients, /etc/dhcpcd.conf:  static domain_name_servers=<Pihole static IP, not router IP>
