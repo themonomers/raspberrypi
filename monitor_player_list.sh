@@ -11,7 +11,10 @@ screen -Rd minecraft -p 0 -X hardcopy
 #grab the last output line from the list command and parse out player names
 STR=$(tac /home/pi/Paper/hardcopy.0 | grep -m1 INFO)
 PLAYERS="${STR:60}"
-echo "${PLAYERS}"
+SUB='players online'
+if [[ "$STR" == *"$SUB"* ]]; then
+  echo "${PLAYERS}"
+fi
 
 #loop through player names with comma delimiters
 #for i in $(echo $PLAYERS | sed "s/, / /g")
