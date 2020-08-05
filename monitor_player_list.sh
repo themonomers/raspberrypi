@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #send list players command to minecraft screen
+screen -Rd minecraft -p 0 -X width -d 300
 screen -Rd minecraft -p 0 -X stuff "list $(printf '\r')"
 
 #pause to allow command to execute and return output before writing to file
