@@ -9,7 +9,10 @@ if [[ "$STR" == *"$SUB"* ]]; then
 fi
 
 # delete all but the last 10 files
-ls -t /home/pi/keepass/kathy.* | tail -n +11 | xargs rm --
+COUNT=$(ls /home/pi/keepass/kathy.* | wc -l)
+if [[ $COUNT -gt 10 ]]; then
+  ls -t /home/pi/keepass/kathy.* | tail -n +11 | xargs rm --
+fi
 
 FILE=$(ls -t /home/pi/keepass/kathy* | head -1)
 STR=$(diff -s "$FILE" /mnt/gdrive_kathy/kathy.kdbx)
@@ -18,7 +21,10 @@ if [[ "$STR" == *"$SUB"* ]]; then
 fi
 
 # delete all but the last 10 files
-ls -t /home/pi/keepass/main.* | tail -n +11 | xargs rm --
+COUNT=$(ls /home/pi/keepass/main.* | wc -l)
+if [[ $COUNT -gt 10 ]]; then
+  ls -t /home/pi/keepass/main.* | tail -n +11 | xargs rm --
+fi
 
 # backup the backups to usb drive
 rsync -a --delete /home/pi/keepass /mnt/usb
