@@ -1,6 +1,6 @@
 In order for the inputs.exec to run properly in Telegraf:
 
-1.  Add telegraf user to video group (for GPU temperature)
+1.  Add telegraf user to video group (for GPU temperature), sudo usermod -a -G video telegraf, and restart the service (systemctl)
 2.  Daemon runs as telegraf therefore some of the shell scripts don't return the expected values and need to run with sudo and bypass the password:
   a.  Run:  sudo visudo
   b.  Add:  telegraf ALL=(ALL) NOPASSWD: /<full path>/monitor_player.sh, /<full path>/monitor_player_list.sh, /<full path>/monitor_minecraft.sh
