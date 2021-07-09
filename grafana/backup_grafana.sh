@@ -19,6 +19,7 @@ for row in "${ORGS[@]}" ; do
   mkdir -p "$DIR/dashboards"
   mkdir -p "$DIR/datasources"
   mkdir -p "$DIR/alert-notifications"
+  mkdir -p "$DIR/alerts"
 
   # loop through each dashboard (filter out folders) and export
   for uid in $(curl -sSL -f -k -H "Authorization: Bearer ${KEY}" "${HOST}/api/search?query=&" | jq -r '.[] | select(.type=="dash-db") | .uid'); do
@@ -33,7 +34,7 @@ for row in "${ORGS[@]}" ; do
   for id in $(fetch_fields $KEY 'datasources' 'id'); do
     DS=$(echo $(fetch_fields $KEY "datasources/${id}" 'name')|sed 's/ /-/g').json
     echo $DS
-    
+
     curl -f -k -H "Authorization: Bearer ${KEY}" "${HOST}/api/datasources/${id}" | jq '' > "$DIR/datasources/${DS}"
   done
 
@@ -41,8 +42,16 @@ for row in "${ORGS[@]}" ; do
   for id in $(fetch_fields $KEY 'alert-notifications' 'id'); do
     AN=$(echo $(fetch_fields $KEY "alert-notifications/${id}" 'name')|sed 's/ /-/g').json
     echo $AN
-    
+
     curl -f -k -H "Authorization: Bearer ${KEY}" "${HOST}/api/alert-notifications/${id}" | jq 'del(.created,.updated)' > "$DIR/alert-notifications/$AN"
+  done
+
+  # loop through each alert and export
+  for id in $(fetch_fields $KEY 'alerts' 'id'); do
+    AL=$(echo $(fetch_fields $KEY "alerts/${id}" 'Name')|sed 's/ /-/g').json
+    echo $AL
+
+    curl -f -k -H "Authorization: Bearer ${KEY}" "${HOST}/api/alerts/${id}" | jq 'del(.created,.updated)' > "$DIR/alerts/$AL"
   done
 done
 
