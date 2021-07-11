@@ -55,5 +55,8 @@ for row in "${ORGS[@]}" ; do
   done
 done
 
+# delete all but the last 5 files
+ls -t -d /home/pi/grafana/org1-* | tail -n +6 | xargs rm -rf
+
 # backup the backups to usb drive
 rsync -a --delete /home/pi/grafana /mnt/usb
