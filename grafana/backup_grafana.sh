@@ -20,6 +20,7 @@ for row in "${ORGS[@]}" ; do
   mkdir -p "$DIR/datasources"
   mkdir -p "$DIR/alert-notifications"
   mkdir -p "$DIR/alerts"
+  mkdir -p "$DIR/playlists"
 
   # loop through each dashboard (filter out folders) and export
   for uid in $(curl -sSL -f -k -H "Authorization: Bearer ${KEY}" "${HOST}/api/search?query=&" | jq -r '.[] | select(.type=="dash-db") | .uid'); do
@@ -52,6 +53,14 @@ for row in "${ORGS[@]}" ; do
     echo $AL
 
     curl -f -k -H "Authorization: Bearer ${KEY}" "${HOST}/api/alerts/${id}" | jq 'del(.created,.updated)' > "$DIR/alerts/$AL"
+  done
+  
+  # loop through each playlist and export
+  for id in $(fetch_fields $KEY 'playlists' 'id'); do
+    PL=$(echo $(fetch_fields $KEY "playlists/${id}" 'name')|sed 's/ /-/g').json
+    echo $PL
+
+    curl -f -k -H "Authorization: Bearer ${KEY}" "${HOST}/api/playlists/${id}" | jq 'del(.created,.updated)' > "$DIR/playlists/$PL"
   done
 done
 
