@@ -54,7 +54,7 @@ for row in "${ORGS[@]}" ; do
 
     curl -f -k -H "Authorization: Bearer ${KEY}" "${HOST}/api/alerts/${id}" | jq 'del(.created,.updated)' > "$DIR/alerts/$AL"
   done
-  
+
   # loop through each playlist and export
   for id in $(fetch_fields $KEY 'playlists' 'id'); do
     PL=$(echo $(fetch_fields $KEY "playlists/${id}" 'name')|sed 's/ /-/g').json
@@ -64,8 +64,19 @@ for row in "${ORGS[@]}" ; do
   done
 done
 
-# delete all but the last 5 files
+# delete all but the last 5 backups
 ls -t -d /home/pi/grafana/org1-* | tail -n +6 | xargs rm -rf
+
+
+# whole directory backup
+echo "Executing whole Grafana directory backup"
+sudo tar -cvf /home/pi/grafana/grafana-$timestamp.tar /var/lib/grafana/
+sudo tar -rvf /home/pi/grafana/grafana-$timestamp.tar /etc/grafana/grafana.ini
+gzip /home/pi/grafana/grafana-$timestamp.tar
+
+# delete all but the last 5 backups
+ls -t -d /home/pi/grafana/grafana-* | tail -n +6 | xargs rm -rf
+
 
 # backup the backups to usb drive
 rsync -a --delete /home/pi/grafana /mnt/usb
