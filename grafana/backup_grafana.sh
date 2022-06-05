@@ -68,9 +68,9 @@ done
 ls -t -d /home/pi/grafana/org1-* | tail -n +6 | xargs rm -rf
 
 
-# whole directory backup
-echo "Executing whole Grafana directory backup"
-sudo tar -cvf /home/pi/grafana/grafana-$timestamp.tar /var/lib/grafana/
+# alternative backup
+echo "Executing alternative Grafana backup"
+sudo tar -cvf /home/pi/grafana/grafana-$timestamp.tar /var/lib/grafana/grafana.db
 sudo tar -rvf /home/pi/grafana/grafana-$timestamp.tar /etc/grafana/grafana.ini
 gzip /home/pi/grafana/grafana-$timestamp.tar
 
