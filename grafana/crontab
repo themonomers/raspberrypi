@@ -41,8 +41,8 @@
 # 0 22 * * * python /home/pi/tesla/python/SmartCharger.py >> /home/pi/tesla/python/cron_log 2>&1
 10 0 * * * /usr/bin/timeout -k 360 300 python /home/pi/tesla/python/EnergyTelemetry.py >> /home/pi/tesla/python/cron_log 2>&1
 58 * * * * /usr/bin/timeout -k 210 180 python /home/pi/tesla/python/CheckTokenExpiration.py >> /home/pi/tesla/python/cron_log 2>&1
-*/5 * * * * /usr/bin/timeout -k 210 180 python /home/pi/tesla/python/EnergyLiveTelemetry.py
-# * * * * * python /home/pi/tesla/python/EnergyLiveLocalTelemetry.py
+# */5 * * * * /usr/bin/timeout -k 210 180 python /home/pi/tesla/python/EnergyLiveTelemetry.py
+*/5 * * * * /usr/bin/timeout -k 210 180 python /home/pi/tesla/python/EnergyLocalLiveTelemetry.py
 @daily /usr/bin/timeout -k 360 300 python /home/pi/tesla/python/VehicleTelemetry.py >> /home/pi/tesla/python/cron_log 2>&1
 @weekly /usr/bin/timeout -k 210 180 python /home/pi/tesla/python/TruncateLog.py >> /home/pi/tesla/python/cron_log 2>&1
 @weekly /usr/bin/timeout -k 210 180 python /home/pi/tesla/python/TruncateEmail.py >> /home/pi/tesla/python/cron_log 2>&1
