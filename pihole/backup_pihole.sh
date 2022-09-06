@@ -6,7 +6,7 @@ cd /home/pi/pihole
 
 # backup copy DNS mapping file if different
 FILE=$(ls -t /home/pi/pihole/dnsmasq-* | head -1)
-STR=$(diff -s "$FILE" /etc/dnsmasq.conf)
+STR=$(diff -s -q "$FILE" /etc/dnsmasq.conf)
 SUB='differ'
 if [[ "$STR" == *"$SUB"* ]]; then
   timestamp=$(date +"%Y.%m.%d.%H.%M.%S")
