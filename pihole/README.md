@@ -11,3 +11,5 @@ Hostname mapping to IP addresses in Pihole:
 3.  Update Pihole for static IP address, /etc/dhcpcd.conf:  static ip_address=<Pihole static IP>/24, static routers=<router IP>, static domain_name_servers=<Pihole static IP>
 4.  Update static DHCP lease clients, /etc/dhcpcd.conf:  static domain_name_servers=<Pihole static IP, not router IP>
 5.  Update clients for hostnames, /etc/hosts:  127.0.0.1 localhost, 127.0.1.1 <hostname>
+
+Hostname namespace:  [prefix]-[owner]-[item]-[location]-[id]
