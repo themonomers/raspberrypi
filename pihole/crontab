@@ -22,18 +22,8 @@
 # 
 # m h  dom mon dow   command
 ############################################################################
-##
 # Backup copy of Pihole each day
 15 1 * * * /home/pi/pihole/backup_pihole.sh > /home/pi/pihole/backup_log 2>&1
 ############################################################################
-#* * * * * python /home/pi/temperature/monitor-temp.py >> /home/pi/temperature/temperature.csv
-#* * * * * python /home/pi/temperature/monitor-temp.py
-############################################################################
-##
-# Reset parental controls each night
-#0 12 * * * /home/pi/parental/parental_reset.sh
-############################################################################
-# Disable parental controls on Friday noon
-0 12 * * 5 /home/pi/parental/parental_unlock.sh
-# Enable parental controls on Monday midnight
-0 0 * * 1 /home/pi/parental/parental_lock.sh
+# Check for unknown hosts on the network
+0 * * * * /home/pi/pihole/query_unknown_host.sh 2>&1
