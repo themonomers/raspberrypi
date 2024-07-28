@@ -3,6 +3,7 @@
 leases="$(cat /etc/pihole/dhcp.leases)"
 #echo "$leases"
 
+# loop through pihole dhcp lease file delimited by spaces
 while delimiter=' ' read -ra entry; do
   count=1
 
@@ -23,6 +24,7 @@ while delimiter=' ' read -ra entry; do
     count=$[count + 1]
   done
 
+  # look for any unknown hostnames and send a notification to discord for further investigation for security purposes (all known device hostnames and their corresponding mac addresses are either mapped in /etc/dnsmasq.conf or assigned a static ip in the pihole web console)
   if [ "$hostname" == "*" ]; then
 #    echo "unknown host detected:  $id $mac $ip $hostname $other"
     curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data '{"content":"'"Unknown host detected:  \n  ID:  $id\n  MAC Address:  $mac\n  IP Address:  $ip\n  Hostname:  $hostname\n  DHCP UID:  $other"'"}' $webhook &> /dev/null
