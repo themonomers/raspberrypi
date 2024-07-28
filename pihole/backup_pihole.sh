@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# backup pihole teleporter into usb drive
+# run pihole teleporter to backup configuration as an archive
 cd /home/pi/pihole
 /usr/local/bin/pihole -a -t
 
-# backup copy DNS mapping file if different
+# backup DNS mapping file if different
 FILE=$(ls -t /home/pi/pihole/dnsmasq-* | head -1)
 STR=$(diff -s -q "$FILE" /etc/dnsmasq.conf)
 SUB='differ'
