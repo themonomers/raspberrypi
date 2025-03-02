@@ -1,6 +1,6 @@
 #!/bin/bash
 
-leases="$(cat /etc/pihole/dhcp.leases)"
+leases="$(sudo cat /etc/pihole/dhcp.leases)"
 #echo "$leases"
 
 # loop through pihole dhcp lease file delimited by spaces
