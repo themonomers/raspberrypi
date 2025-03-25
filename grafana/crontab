@@ -23,12 +23,12 @@
 # m h  dom mon dow   command
 ##############################################################################
 # Backup copy of shared Keepass databases each day
-# 0 1 * * * /home/pi/keepass/backup_keepass.sh > /home/pi/backup_log-`date +\%Y-\%m-\%d`.log
-0 1 * * * /usr/bin/timeout -k 210 180 /home/pi/keepass/backup_keepass.sh > /home/pi/keepass/backup_log 2>&1
+0 1 * * * /usr/bin/timeout -k 210 180 /home/pi/keepass/backup_keepass.sh > /home/pi/keepass/backup.log 2>&1
+0 1 * * * /usr/bin/timeout -k 210 180 cp /mnt/gdrive/parents/parents.kdbx /mnt/gdrive/misc/
 #
 ##############################################################################
 # Backup copy of Grafana dashboards each day
-5 1 * * * /usr/bin/timeout -k 210 180 /home/pi/grafana/backup_grafana.sh > /home/pi/grafana/backup_log 2>&1
+5 1 * * * /usr/bin/timeout -k 210 180 /home/pi/grafana/backup_grafana.sh > /home/pi/grafana/backup.log 2>&1
 #
 ##############################################################################
 # Backup copy of Tesla code each day
@@ -36,16 +36,15 @@
 #
 ##############################################################################
 # Automation for Tesla solar, charging, and logging data
-0 15 * * * /usr/bin/timeout -k 210 180 python /home/pi/tesla/python/RemoveTeslaCron.py >> /home/pi/tesla/python/cron_log 2>&1
-0 6 * * * /usr/bin/timeout -k 210 180 python /home/pi/tesla/python/EnergyMode.py >> /home/pi/tesla/python/cron_log 2>&1
-# 0 22 * * * python /home/pi/tesla/python/SmartCharger.py >> /home/pi/tesla/python/cron_log 2>&1
-10 0 * * * /usr/bin/timeout -k 360 300 python /home/pi/tesla/python/EnergyTelemetry.py >> /home/pi/tesla/python/cron_log 2>&1
-58 * * * * /usr/bin/timeout -k 210 180 python /home/pi/tesla/python/CheckTokenExpiration.py >> /home/pi/tesla/python/cron_log 2>&1
-# */5 * * * * /usr/bin/timeout -k 210 180 python /home/pi/tesla/python/EnergyLiveTelemetry.py
+@hourly /usr/bin/timeout -k 210 180 /home/pi/tesla-command-proxy/monitor_proxy.sh >> /home/pi/tesla/python/cron.log 2>&1
+58 * * * * /usr/bin/timeout -k 210 180 python /home/pi/tesla/python/TeslaTokenExpiration.py >> /home/pi/tesla/python/cron.log 2>&1
+0 15 * * * /usr/bin/timeout -k 210 180 python /home/pi/tesla/python/RemoveTeslaCron.py >> /home/pi/tesla/python/cron.log 2>&1
+0 22 * * * /usr/bin/timeout -k 3600 3000 python /home/pi/tesla/python/Charger.py >> /home/pi/tesla/python/cron.log 2>&1
+@daily /usr/bin/timeout -k 3600 3000 python /home/pi/tesla/python/VehicleTelemetry.py >> /home/pi/tesla/python/cron.log 2>&1
 */5 * * * * /usr/bin/timeout -k 210 180 python /home/pi/tesla/python/EnergyLocalLiveTelemetry.py
-@daily /usr/bin/timeout -k 360 300 python /home/pi/tesla/python/VehicleTelemetry.py >> /home/pi/tesla/python/cron_log 2>&1
-@weekly /usr/bin/timeout -k 210 180 python /home/pi/tesla/python/TruncateLog.py >> /home/pi/tesla/python/cron_log 2>&1
-@weekly /usr/bin/timeout -k 210 180 python /home/pi/tesla/python/TruncateEmail.py >> /home/pi/tesla/python/cron_log 2>&1
+0 6 * * * /usr/bin/timeout -k 210 180 python /home/pi/tesla/python/EnergyMode.py >> /home/pi/tesla/python/cron.log 2>&1
+10 0 * * * /usr/bin/timeout -k 360 300 python /home/pi/tesla/python/EnergyTelemetry.py >> /home/pi/tesla/python/cron.log 2>&1
+@weekly /usr/bin/timeout -k 210 180 python /home/pi/tesla/python/TruncateLog.py >> /home/pi/tesla/python/cron.log 2>&1
+@weekly /usr/bin/timeout -k 210 180 python /home/pi/tesla/python/TruncateEmail.py >> /home/pi/tesla/python/cron.log 2>&1
 #
 ##############################################################################
-#
