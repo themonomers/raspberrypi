@@ -11,4 +11,4 @@ ls -t -d /home/pi/grafana/grafana-* | tail -n +6 | xargs rm -rf
 
 
 # backup the backups to usb drive
-rsync -a --delete --no-perms --no-owner --no-group /home/pi/grafana /mnt/usb
+rsync -a --delete /home/pi/grafana /mnt/usb
