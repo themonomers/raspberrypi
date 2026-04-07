@@ -27,4 +27,4 @@ if [[ $COUNT -gt 10 ]]; then
 fi
 
 # backup the backups to usb drive
-rsync -a --delete /home/pi/keepass /mnt/usb
+rsync -a --delete --no-perms --no-owner --no-group /home/pi/keepass /mnt/usb
