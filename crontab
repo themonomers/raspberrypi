@@ -23,12 +23,12 @@
 # m h  dom mon dow   command
 ##############################################################################
 # Check startup processes
-# @daily /usr/bin/timeout -k 60 180 /home/pi/monitor_mount.sh
+@daily /usr/bin/timeout -k 60 180 /home/pi/monitor_mount.sh
 #
 ##############################################################################
 # Backup copy of shared Keepass databases each day
 0 1 * * * /usr/bin/timeout -k 60 180 /home/pi/keepass/backup_keepass.sh > /home/pi/keepass/backup.log 2>&1
-0 1 * * * /usr/bin/timeout -k 60 180 cp /mnt/gdrive/parents/parents.kdbx /mnt/gdrive_parents/misc/
+# 0 1 * * * /usr/bin/timeout -k 60 180 cp /mnt/gdrive/parents/parents.kdbx /mnt/gdrive_parents/misc/
 #
 ##############################################################################
 # Backup copy of Grafana dashboards each day
@@ -36,7 +36,7 @@
 #
 ##############################################################################
 # Backup copy of Tesla code each day
-10 1 * * * /usr/bin/timeout -k 60 180 rsync -a --delete /home/pi/tesla /mnt/usb
+10 1 * * * /usr/bin/timeout -k 60 180 rsync -a --delete --no-perms --no-owner --no-group /home/pi/tesla /mnt/usb
 #
 ##############################################################################
 # Automation for Tesla solar, charging, and logging data
@@ -50,5 +50,3 @@
 10 0 * * * /usr/bin/timeout -k 60 300 python -u /home/pi/tesla/python/EnergyTelemetry.py >> /home/pi/tesla/python/cron.log 2>&1
 @weekly /usr/bin/timeout -k 60 180 python -u /home/pi/tesla/python/TruncateLog.py >> /home/pi/tesla/python/cron.log 2>&1
 @weekly /usr/bin/timeout -k 60 180 python -u /home/pi/tesla/python/TruncateEmail.py >> /home/pi/tesla/python/cron.log 2>&1
-#
-##############################################################################
