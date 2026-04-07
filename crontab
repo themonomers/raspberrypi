@@ -36,7 +36,7 @@
 #
 ##############################################################################
 # Backup copy of Tesla code each day
-10 1 * * * /usr/bin/timeout -k 60 180 rsync -a --delete --no-perms --no-owner --no-group /home/pi/tesla /mnt/usb
+10 1 * * * /usr/bin/timeout -k 60 180 rsync -a --delete /home/pi/tesla /mnt/usb
 #
 ##############################################################################
 # Automation for Tesla solar, charging, and logging data
