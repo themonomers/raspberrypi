@@ -28,5 +28,5 @@ fi
 
 # send notification if back up failed
 if [[ $GRAFANA_BACKED_UP == "false" ]] || [[ $DEV_BACKED_UP == "false" ]]; then
-  curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data '{"content":"'"One or more backups failed:  \n  Grafana:  $GRAFANA_BACKED_UP\n  Dev:  $DEV_BACKED_UP\n"'"}' $webhook &> /dev/null
+  curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data '{"content":"'"One or more backups failed:  \n  Grafana:  $GRAFANA_BACKED_UP\n  Dev:  $DEV_BACKED_UP"'"}' $webhook &> /dev/null
 fi
