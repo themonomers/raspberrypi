@@ -22,6 +22,10 @@
 # 
 # m h  dom mon dow   command
 ##############################################################################
+# Check operational processes
+@daily /usr/bin/timeout -k 60 180 /home/pi/monitor_backup.sh
+#
+##############################################################################
 # Backup copy of InfluxDB each day
 5 1 * * * /home/pi/influxdb/backup_influxdb.sh > /home/pi/influxdb/backup_log 2>&1
 #
