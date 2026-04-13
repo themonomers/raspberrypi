@@ -23,6 +23,7 @@
 # m h  dom mon dow   command
 ##############################################################################
 # Check operational processes
+@daily /usr/bin/timeout -k 60 180 /home/pi/monitor_mounts.sh
 @daily /usr/bin/timeout -k 60 180 /home/pi/monitor_backup.sh
 #
 ############################################################################
