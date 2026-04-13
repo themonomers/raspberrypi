@@ -17,5 +17,5 @@ fi
 
 # send notification if back up failed
 if [[ $PIHOLE_BACKED_UP == "false" ]]; then
-  curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data '{"content":"'"One or more backups failed:  \n  Pihole:  $PIHOLE_BACKED_UP"'"}' $webhook &> /dev/null
+  curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data '{"content":"'"One or more backups failed:  \n  Pihole Backed Up:  $PIHOLE_BACKED_UP"'"}' $webhook &> /dev/null
 fi
