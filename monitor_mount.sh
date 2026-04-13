@@ -23,5 +23,5 @@ done <<< "$mounts"
 
 # send notification if any disks failed to mount
 if [[ $usb == "false" ]] || [[ $gdrive == "false" ]]; then
-  curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data '{"content":"'"One or more disks failed to mount:  \n  USB: $usb\n  GDrive:  $gdrive"'"}' $webhook &> /dev/null
+  curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data '{"content":"'"One or more disks failed to mount:  \n  USB Mounted: $usb\n  GDrive Mounted:  $gdrive"'"}' $webhook &> /dev/null
 fi
