@@ -24,7 +24,7 @@
 ##############################################################################
 # Check operational processes
 @daily /usr/bin/timeout -k 60 180 /home/pi/monitor_mount.sh
-@daily /usr/bin/timeout -k 60 180 /home/pi/monitor_backup.sh
+0 2 * * * /usr/bin/timeout -k 60 180 /home/pi/monitor_backup.sh
 #
 ##############################################################################
 # Backup copy of shared Keepass databases each day
