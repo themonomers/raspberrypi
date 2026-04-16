@@ -40,6 +40,12 @@
 10 1 * * * /usr/bin/timeout -k 60 180 rsync -a --delete /home/pi/tesla /mnt/usb
 #
 ##############################################################################
+# Backups each day
+0 16 * * * crontab -l > /mnt/usb/crontab
+0 16 * * * cp /home/pi/monitor_mount.sh /mnt/usb
+0 16 * * * cp /home/pi/monitor_backup.sh /mnt/usb
+#
+##############################################################################
 # Automation for Tesla solar, charging, and logging data
 @hourly /usr/bin/timeout -k 60 180 /home/pi/tesla-command-proxy/monitor_proxy.sh >> /home/pi/tesla/python/cron.log 2>&1
 58 * * * * /usr/bin/timeout -k 60 180 python -u /home/pi/tesla/python/TeslaTokenExpiration.py >> /home/pi/tesla/python/cron.log 2>&1
@@ -51,3 +57,5 @@
 10 0 * * * /usr/bin/timeout -k 60 300 python -u /home/pi/tesla/python/EnergyTelemetry.py >> /home/pi/tesla/python/cron.log 2>&1
 @weekly /usr/bin/timeout -k 60 180 python -u /home/pi/tesla/python/TruncateLog.py >> /home/pi/tesla/python/cron.log 2>&1
 @weekly /usr/bin/timeout -k 60 180 python -u /home/pi/tesla/python/TruncateEmail.py >> /home/pi/tesla/python/cron.log 2>&1
+#
+##############################################################################
