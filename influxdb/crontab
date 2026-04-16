@@ -28,6 +28,12 @@
 #
 ##############################################################################
 # Backup copy of InfluxDB each day
-5 1 * * * /home/pi/influxdb/backup_influxdb.sh > /home/pi/influxdb/backup_log 2>&1
+5 1 * * * /home/pi/influxdb/backup_influxdb.sh > /home/pi/influxdb/backup.log 2>&1
+#
+##############################################################################
+# Backups each day
+0 15 * * * crontab -l > /mnt/usb/crontab
+0 15 * * * cp /home/pi/monitor_mount.sh /mnt/usb
+0 15 * * * cp /home/pi/monitor_backup.sh /mnt/usb
 #
 ##############################################################################
