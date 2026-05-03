@@ -17,7 +17,7 @@ if [[ $TODAY == $FILE_DATE ]]; then
 fi  
 
 # check file date
-cd /mnt/usb/dev/tesla/python/test
+cd /mnt/usb/dev/tesla/python/test/common
 FILE=$(ls -t | head -n 1)
 FILE_DATE=$(stat -c %y "$FILE" | cut -d' ' -f1)
 #echo $FILE_DATE
