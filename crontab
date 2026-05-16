@@ -56,7 +56,7 @@ PYTHONPATH=/home/pi/tesla/python:
 */5 * * * * /usr/bin/timeout -k 60 180 python /home/pi/tesla/python/energy/localtelemetry.py
 0 6 * * * /usr/bin/timeout -k 60 180 python -u /home/pi/tesla/python/energy/mode.py >> /home/pi/tesla/python/cron.log 2>&1
 10 0 * * * /usr/bin/timeout -k 60 300 python -u /home/pi/tesla/python/energy/telemetry.py --all >> /home/pi/tesla/python/cron.log 2>&1
-@weekly /usr/bin/timeout -k 60 180 python -u /home/pi/tesla/python/common/logger.py --truncate >> /home/pi/tesla/python/cron.log 2>&1
+30 6 * * * /usr/bin/timeout -k 60 180 python -u /home/pi/tesla/python/common/utilities.py --load 30 >> /home/pi/tesla/python/cron.log 2>&1
 @weekly /usr/bin/timeout -k 60 180 python -u /home/pi/tesla/python/common/emailutil.py --truncate >> /home/pi/tesla/python/cron.log 2>&1
 #
 ##############################################################################
