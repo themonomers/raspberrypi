@@ -47,16 +47,16 @@
 #
 ##############################################################################
 # Automation for Tesla solar, charging, and logging data
-PYTHONPATH=/home/pi/tesla/python:
-@hourly /usr/bin/timeout -k 60 180 /home/pi/tesla-command-proxy/monitor_proxy.sh >> /home/pi/tesla/python/cron.log 2>&1
-58 * * * * /usr/bin/timeout -k 60 180 python -u /home/pi/tesla/python/common/tokenutil.py --check >> /home/pi/tesla/python/cron.log 2>&1
-0 15 * * * /usr/bin/timeout -k 60 180 python -u /home/pi/tesla/python/vehicle/removecron.py >> /home/pi/tesla/python/cron.log 2>&1
-0 22 * * * /usr/bin/timeout -k 60 600 python -u /home/pi/tesla/python/vehicle/charge.py --notify >> /home/pi/tesla/python/cron.log 2>&1
-@daily /usr/bin/timeout -k 60 600 python -u /home/pi/tesla/python/vehicle/telemetry.py >> /home/pi/tesla/python/cron.log 2>&1
-*/5 * * * * /usr/bin/timeout -k 60 180 python /home/pi/tesla/python/energy/localtelemetry.py
-0 6 * * * /usr/bin/timeout -k 60 180 python -u /home/pi/tesla/python/energy/mode.py >> /home/pi/tesla/python/cron.log 2>&1
-10 0 * * * /usr/bin/timeout -k 60 300 python -u /home/pi/tesla/python/energy/telemetry.py --all >> /home/pi/tesla/python/cron.log 2>&1
-30 6 * * * /usr/bin/timeout -k 60 180 python -u /home/pi/tesla/python/common/utilities.py --load 30 >> /home/pi/tesla/python/cron.log 2>&1
-@weekly /usr/bin/timeout -k 60 180 python -u /home/pi/tesla/python/common/emailutil.py --truncate >> /home/pi/tesla/python/cron.log 2>&1
+PYTHONPATH=/home/pi/tesla/python/src:
+@hourly /usr/bin/timeout -k 60 180 /home/pi/tesla-command-proxy/monitor_proxy.sh >> /home/pi/tesla/python/logs/cron.log 2>&1
+58 * * * * /usr/bin/timeout -k 60 180 python -u /home/pi/tesla/python/src/common/tokenutil.py --check >> /home/pi/tesla/python/logs/cron.log 2>&1
+0 15 * * * /usr/bin/timeout -k 60 180 python -u /home/pi/tesla/python/src/vehicle/removecron.py >> /home/pi/tesla/python/logs/cron.log 2>&1
+0 22 * * * /usr/bin/timeout -k 60 600 python -u /home/pi/tesla/python/src/vehicle/charge.py --notify >> /home/pi/tesla/python/logs/cron.log 2>&1
+@daily /usr/bin/timeout -k 60 600 python -u /home/pi/tesla/python/src/vehicle/telemetry.py >> /home/pi/tesla/python/logs/cron.log 2>&1
+*/5 * * * * /usr/bin/timeout -k 60 180 python /home/pi/tesla/python/src/energy/localtelemetry.py
+0 6 * * * /usr/bin/timeout -k 60 180 python -u /home/pi/tesla/python/src/energy/mode.py >> /home/pi/tesla/python/logs/cron.log 2>&1
+10 0 * * * /usr/bin/timeout -k 60 300 python -u /home/pi/tesla/python/src/energy/telemetry.py --all >> /home/pi/tesla/python/logs/cron.log 2>&1
+30 6 * * * /usr/bin/timeout -k 60 180 python -u /home/pi/tesla/python/src/common/utilities.py --load 30 >> /home/pi/tesla/python/logs/cron.log 2>&1
+@weekly /usr/bin/timeout -k 60 180 python -u /home/pi/tesla/python/src/common/emailutil.py --truncate >> /home/pi/tesla/python/logs/cron.log 2>&1
 #
 ##############################################################################
