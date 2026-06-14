@@ -48,7 +48,7 @@
 ##############################################################################
 # Automation for Tesla solar, charging, and logging data
 PYTHONPATH=/home/pi/tesla/python/src:
-@hourly /usr/bin/timeout -k 60 180 /home/pi/tesla-command-proxy/monitor_proxy.sh >> /home/pi/tesla/python/logs/cron.log 2>&1
+@hourly /usr/bin/timeout -k 60 180 /home/pi/vehicle-command/monitor_proxy.sh >> /home/pi/tesla/python/logs/cron.log 2>&1
 58 * * * * /usr/bin/timeout -k 60 180 python -u /home/pi/tesla/python/src/common/tokenutil.py --check >> /home/pi/tesla/python/logs/cron.log 2>&1
 0 15 * * * /usr/bin/timeout -k 60 180 python -u /home/pi/tesla/python/src/vehicle/removecron.py >> /home/pi/tesla/python/logs/cron.log 2>&1
 0 22 * * * /usr/bin/timeout -k 60 600 python -u /home/pi/tesla/python/src/vehicle/charge.py --notify >> /home/pi/tesla/python/logs/cron.log 2>&1
